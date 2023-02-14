@@ -12,7 +12,7 @@ certbot_create_command: >-
   {{ '--hsts' if certbot_hsts else '' }}
   {{ '--test-cert' if certbot_testmode else '' }}
   --noninteractive --agree-tos
-  --dns-{{ certbot_dns_plugin }} --dns-{{ certbot_dns_plugin }}-credentials {{ certbot_dns_credentials_file }}
+  --dns-{{ certbot_dns_plugin }} --dns-{{ certbot_dns_plugin }}-credentials {{ certbot_dns_credentials_file }} --dns-cloudflare-propagation-seconds 30
   --email {{ cert_item.email | default(certbot_admin_email) }}
   -d {{ cert_item.domains | join(',') }}
   {{ '--deploy-hook /etc/letsencrypt/renewal-hooks/deploy/reload_services.sh'
